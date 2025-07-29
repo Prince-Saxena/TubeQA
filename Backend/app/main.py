@@ -29,6 +29,7 @@ async def query(req:Request):
     response = gen_response(query=query, video_id=video_id, lang=lang)
     return {"Response":response}
 
-@app.post("/langs/{video_id}")
+@app.post("/langs")
 async def available_langs(video_id:str):
+    print(video_id)
     return await get_available_languages(video_id=video_id)

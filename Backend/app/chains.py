@@ -18,32 +18,24 @@ main_chain = (
         'question': x['question']['query']
     })
     | ChatPromptTemplate.from_template("""
-**YouTube Video Assistant Response Format**
+You are a YouTube Video Assistant.
 
-🔍 **Key Points from Video:**
+Answer the user's question using only the given context from the video transcript.  
+Keep the language simple and easy to understand. Format & beautify the output using Markdown.
+
+Rules:
+- Do not repeat the question.
+- Do not include headings like "Answer", "Summary", or "Disclaimer".
+- Respond in 2–3 clear bullet points OR 1 short paragraph, depending on what's better.
+- Only use information from the video.
+
+Context:
 {context}
 
-{{ Answer in 2-3 concise bullet points or 1 short paragraph. Focus on the most relevant information from the context. }}
+Question:
+{question}
 
-{{ Optional: 1-2 supporting points if needed for clarity }}
-
-🚫 **Disclaimer:** 
-- Answers are generated from the video content only
-- May not represent complete or professional advice
-
-Example Structure:
-
-🔍 **Key Points from Video:
-- Plants use sunlight to make food
-- Chlorophyll captures light energy
-- Carbon dioxide + water → glucose + oxygen
-
-🎯 **Answer (Summary):**
-Photosynthesis is how plants make food using sunlight. The green chlorophyll in leaves captures sunlight to convert carbon dioxide and water into glucose (plant food) and oxygen.
-
-💡 **Additional Details:
-- Occurs in plant cell structures called chloroplasts
-- Vital for producing oxygen we breathe
+Response:
 """)
 
     | ChatGoogleGenerativeAI(model="gemini-1.5-flash")

@@ -32,9 +32,12 @@ function extractVideoId(url) {
 async function getAvailableLanguages(videoId) {
 	try {
 		const response = await fetch(
-			`http://localhost:8000/langs?video_id=${videoId}`
+			`http://localhost:8000/langs?video_id=${videoId}`,
+			{method: 'POST',}
 		);
+		
 		const data = await response.json();
+		// console.log(data);
 		return data.languages || ['en'];
 	} catch (error) {
 		console.error("Error fetching available languages:", error);
@@ -53,12 +56,20 @@ async function loadPlayer(videoId) {
 		// Get available languages
 		availableLanguages = await getAvailableLanguages(videoId);
 
-		// Prefer English if available, otherwise use first available language
-		const preferredLang = availableLanguages.includes("en")
-			? "en"
-			: availableLanguages.length > 0
-			? availableLanguages[0]
-			: "en";
+		// Find the best available language
+		let preferredLang = "en"; // Default fallback
+
+		// Check for any English variant (en, en-US, en-IN, etc.)
+		const englishVariants = availableLanguages.filter((lang) => lang.startsWith("en"));
+		if (englishVariants.length > 0) {
+			// Prefer 'en' if available, otherwise use the first English variant
+			preferredLang = englishVariants.includes("en") ? "en" : englishVariants[0];
+		}
+		// If no English variants, check for other languages
+		else if (availableLanguages.length > 0) {
+			// Use the first available language
+			preferredLang = availableLanguages[0];
+		}
 
 		// Load player
 		playerContainer.innerHTML = `
@@ -71,7 +82,10 @@ async function loadPlayer(videoId) {
                 allowfullscreen>
             </iframe>
         `;
-
+		addMessage(
+			"bot",
+			"Hello! Welcome to TubeQA - your smart YouTube video assistant. Ask questions, get answers instantly from any video!"
+		);
 		return preferredLang;
 	} catch (error) {
 		console.error("Error loading player:", error);
@@ -108,7 +122,7 @@ function renderChatHistory() {
 					? "bg-blue-500 text-white rounded-tr-none"
 					: "bg-gray-200 dark:bg-dark-600 text-gray-800 dark:text-gray-200 rounded-tl-none"
 			}">
-				// <div class="prose prose-sm dark:prose-invert">${msg.text}</div>
+				<div class="prose prose-sm dark:prose-invert">${msg.text}</div>
 				${
 					msg.sender === "bot"
 						? `<div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -129,8 +143,10 @@ function renderChatHistory() {
 
 // Add message to chat history
 function addMessage(sender, text, lang = "en") {
+	if (!text) text = ""; // Fallback to empty string if null/undefined
+
 	const parsedText =
-		sender === "bot" ? marked.parse(text) : text.replace(/</g, "&lt;").replace(/>/g, "&gt;"); // Escape HTML for user input
+		sender === "bot" ? marked.parse(text) : text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 	chatHistory.push({
 		sender,
@@ -176,8 +192,12 @@ async function sendQuery(query, lang) {
 		});
 
 		const data = await response.json();
+		// console.log(data);
+		
 		addMessage("bot", data.Response, lang);
 	} catch (error) {
+		// console.log(error);
+		
 		addMessage("bot", `Error: ${error.message}`, lang);
 	} finally {
 		userQueryInput.disabled = false;
@@ -229,8 +249,8 @@ loadButton.addEventListener("click", async () => {
 	userQueryInput.focus();
 
 	// Show available languages in console (for debugging)
-	console.log("Available languages:", availableLanguages);
-	console.log("Selected language:", preferredLang);
+	// console.log("Available languages:", availableLanguages);
+	// console.log("Selected language:", preferredLang);
 });
 
 sendButton.addEventListener("click", async () => {

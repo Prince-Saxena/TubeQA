@@ -6,11 +6,10 @@
 
 ## 🎯 Purpose
 
-As a Data Scientist, I built TubeQA to explore the integration of:
+As a Aspiring Data Scientist, I built TubeQA to explore the integration of:
 
-- Natural Language Processing (NLP)  
 - Retrieval-Augmented Generation (RAG)  
-- YouTube data mining  
+- Natural Language Processing (NLP)  
 - FastAPI for real-time ML serving  
 - LangChain for chaining LLM-based pipelines  
 
@@ -50,3 +49,24 @@ This project enables interactive question answering over YouTube videos — a pr
 ## 🧠 LangChain RAG Architecture
 
 ![Work Flow](/images/workflow.png)
+
+---
+
+## 🚫 Why TubeQA is Not Deployed
+
+Although TubeQA is fully functional, I have **not deployed** it intentionally. Here's why:
+
+- 🚨 The app uses **private API keys** for services like Google Gemini and HuggingFace.
+- 🧾 If I deploy it publicly, **API usage can incur charges**, which are billed to my account.
+- 🔐 To keep my keys secure and avoid unwanted billing, I’ve chosen not to make it live for now.
+
+Feel free to fork the project and set up your own keys to run it locally.
+
+---
+
+## 🙏 Acknowledgements
+
+Special thanks to [CampusX YouTube Channel](https://www.youtube.com/c/CampusX) 🎓 —  
+Their clear and beginner-friendly tutorials helped me learn and build with **LangChain** effectively.
+
+---

@@ -5,7 +5,7 @@ from typing import Literal
 
 class TranscriptRequest(BaseModel):
     video_id: str = Field(..., description="ID of YT video.")
-    lang: Literal["en", "hi"] = Field(..., description="Language for QA.")
+    lang: str = Field(..., description="Language for QA.")
 
 def get_transcript(data:TranscriptRequest):
     try:
