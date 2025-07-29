@@ -49,20 +49,4 @@ This project enables interactive question answering over YouTube videos — a pr
 
 ## 🧠 LangChain RAG Architecture
 
-> ✅ Enable Mermaid rendering in GitHub or use any compatible markdown viewer.
-
-graph LR
-    A[User Question] --> B[YouTube Video URL]
-    B --> C[Extract Video ID]
-    C --> D[Fetch Transcript]
-    D --> E[Text Chunking]
-    E --> F[Generate Embeddings]
-    F --> G[FAISS Vector Store]
-    A --> H[Question Embedding]
-    H --> I[Semantic Search]
-    G --> I
-    I --> J[Retrieve Relevant Chunks]
-    J --> K[LangChain Processing]
-    K --> L[Gemini Answer Generation]
-    L --> M[Formatted Response]
-    M --> N[User Interface]
+![Work Flow](/images/workflow.png)
