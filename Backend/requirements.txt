@@ -1,0 +1,7 @@
+langchain
+langchain_google_genai
+pydantic
+fastapi
+python-dotenv
+langchain_huggingface
+youtube-transcript-api
