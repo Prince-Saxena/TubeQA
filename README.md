@@ -66,7 +66,7 @@ Feel free to fork the project and set up your own keys to run it locally.
 
 ## 🙏 Acknowledgements
 
-Special thanks to [CampusX YouTube Channel](https://www.youtube.com/c/CampusX) 🎓 —  
+Special thanks to [CampusX YouTube Channel](https://www.youtube.com/c/campusx-official) 🎓 —  
 Their clear and beginner-friendly tutorials helped me learn and build with **LangChain** effectively.
 
 ---
