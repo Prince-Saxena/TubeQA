@@ -1,6 +1,6 @@
 # TubeQA - YouTube Video Assistant 🎥🤖
 
-![TubeQA Screenshot](https://i.imgur.com/JfKtR8h.png)  
+![TubeQA Screenshot](/images/image.png)  
 *(*Replace this with your actual screenshot*)*
 
 ## 🎯 Purpose
