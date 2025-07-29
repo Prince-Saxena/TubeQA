@@ -51,15 +51,18 @@ This project enables interactive question answering over YouTube videos — a pr
 
 > ✅ Enable Mermaid rendering in GitHub or use any compatible markdown viewer.
 
-graph TD
-    UI[User Input] --> ExtractID[Extract Video ID]
-    ExtractID --> GetTranscript[Get Transcript]
-    GetTranscript --> Chunk[Split Transcript into Chunks]
-    Chunk --> EmbedChunks[Create Embeddings]
-    EmbedChunks --> Store[Save in FAISS DB]
-    
-    Query[User Question] --> EmbedQuery[Convert Question to Embedding]
-    EmbedQuery --> Search[Search Similar Chunks]
-    Search --> Retrieve[Retrieve Top-k Chunks]
-    Retrieve --> Answer[Generate Answer with LLM]
-    Answer --> Return[Send Answer to UI]
+graph LR
+    A[User Question] --> B[YouTube Video URL]
+    B --> C[Extract Video ID]
+    C --> D[Fetch Transcript]
+    D --> E[Text Chunking]
+    E --> F[Generate Embeddings]
+    F --> G[FAISS Vector Store]
+    A --> H[Question Embedding]
+    H --> I[Semantic Search]
+    G --> I
+    I --> J[Retrieve Relevant Chunks]
+    J --> K[LangChain Processing]
+    K --> L[Gemini Answer Generation]
+    L --> M[Formatted Response]
+    M --> N[User Interface]
